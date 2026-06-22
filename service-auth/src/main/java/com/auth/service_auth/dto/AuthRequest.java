@@ -1,0 +1,19 @@
+package com.auth.service_auth.dto;
+
+import java.util.Set;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class AuthRequest {
+
+    private String nombreUsuario;
+    private String contrasena;
+    private String correo;
+    private Set<String> roles;
+
+}

@@ -1,0 +1,26 @@
+package com.servicios.servicios.config;
+
+import java.util.List;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.servers.Server;
+
+@Configuration
+public class OpenApiConfig {
+    @Bean
+    public OpenAPI citasOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("API Servicios - Sistema de Gestión Barbería")
+                        .version("1.0.0")
+                        .description("Documentación del microservicio de servicios de la barbería"))
+                        .servers(List.of(
+                            new Server().url("http://localhost:8099").description("Microservicio Servicios")
+                ));
+    }
+
+}

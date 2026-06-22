@@ -1,0 +1,85 @@
+server:
+    port: 8099
+jwt:
+  secret: 493358340235739058340598340598340598340598340598
+spring:
+    application:
+        name: api-gateway
+    cloud:
+        gateway:
+         server:
+          webflux:
+            routes:
+
+              - id: auth-service
+                uri: http://localhost:8090
+                predicates:
+                    - Path=/auth/**
+            # INVENTARIO
+              - id: inventario-service
+                uri: http://localhost:9081
+                predicates:
+                    - Path=/productos,/productos/**
+               
+
+            # CLIENTES
+              - id: clientes-service
+                uri: http://localhost:9082
+                predicates:
+                    - Path=/clientes,/clientes/**
+                
+
+            # BARBEROS
+              - id: barbero-service
+                uri: http://localhost:8083
+                predicates:
+                    - Path=/barberos,/barberos/**
+                filters:
+                  - AuthenticationFilter
+
+            # SUCURSALES
+              - id: sucursal-service
+                uri: http://localhost:8084
+                predicates:
+                    - Path=/sucursales,/sucursales/**
+                filters:
+                   - AuthenticationFilter
+
+            # CITAS
+              - id: cita-service
+                uri: http://localhost:8085
+                predicates:
+                    - Path=/citas,/citas/**
+              
+            # SERVICIOS        
+              - id: servicios-service
+                uri: http://localhost:8094
+                predicates:
+                    - Path=/servicios,/servicios/**
+              
+            # PAGOS
+              - id: pagos-service
+                uri: http://localhost:8095
+                predicates:
+                    - Path=/pagos,/pagos/**
+                filters:
+                 - AuthenticationFilter
+
+              - id: promociones-service
+                uri: http://localhost:8097
+                predicates: 
+                    - Path=/promociones,/promociones/**
+                filters:
+                   - AuthenticationFilter
+
+              - id: resena-service
+                uri: http://localhost:8098
+                predicates: 
+                    - Path=/resena,/resane/**
+                filters:
+                    - AuthenticationFilter
+
+              - id: horarios-service
+                uri: http://localhost:8096
+                predicates: 
+                    - Path=/horarios,/horarios/**
