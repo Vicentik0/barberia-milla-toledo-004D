@@ -1,0 +1,127 @@
+server:
+    port: 8099
+jwt:
+  secret: 493358340235739058340598340598340598340598340598
+spring:
+    application:
+        name: api-gateway
+    cloud:
+      gateway:
+       discovery:
+        locator:
+          enabled: true
+
+       routes:
+
+        - id: auth-service
+          uri: http://localhost:8090
+          predicates:
+            - Path=/auth/**
+
+        - id: inventario-service
+          uri: http://localhost:9081
+          predicates:
+            - Path=/productos/**
+          
+
+        - id: clientes-service
+          uri: http://localhost:9082
+          predicates:
+            - Path=/cliente/**
+         
+
+        - id: barberos-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/barberos/**
+          filters:
+            - AuthenticationFilter
+
+        - id: sucursales-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/sucursales/**
+          
+
+        - id: citas-service
+          uri: http://localhost:8085
+          predicates:
+            - Path=/citas/**
+         
+
+        - id: servicios-service
+          uri: http://localhost:8094
+          predicates:
+            - Path=/servicios/**
+          
+
+        - id: pagos-service
+          uri: http://localhost:8095
+          predicates:
+            - Path=/pagos/**
+          
+
+        - id: horarios-service
+          uri: http://localhost:8096
+          predicates:
+            - Path=/api/v1/horarios/**
+          
+
+        - id: promociones-service
+          uri: http://localhost:8097
+          predicates:
+            - Path=/api/v1/promociones/**
+        
+
+        - id: resenas-service
+          uri: http://localhost:8098
+          predicates:
+            - Path=/api/v1/resenas/**
+         
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+springdoc:
+  swagger-ui:
+      urls:
+      - name: Auth
+        url: /auth/v3/api-docs
+
+      - name: Inventario
+        url: /productos/v3/api-docs
+
+      - name: Clientes
+        url: /cliente/v3/api-docs
+
+      - name: Barberos
+        url: /barberos/v3/api-docs
+
+      - name: Sucursales
+        url: /sucursales/v3/api-docs
+
+      - name: Citas
+        url: /citas/v3/api-docs
+
+      - name: Servicios
+        url: /servicios/v3/api-docs
+
+      - name: Pagos
+        url: /pagos/v3/api-docs
+
+      - name: Horarios
+        url: /api/v1/horarios/v3/api-docs
+
+      - name: Promociones
+        url: /api/v1/promociones/v3/api-docs
+
+      - name: Reseñas
+        url: /api/v1/resenas/v3/api-docs
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG
